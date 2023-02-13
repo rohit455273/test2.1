@@ -18,7 +18,7 @@ library(leaflet)
 library(dplyr)
 library(ggplot2)
 library(plotly)
-
+library(shinytest2)
 data=readRDS("WWW/sf.RDS")%>%mutate_at(vars(species),~na_if(.,"Tree(s) ::"))%>%na.omit()
 
 #datai =data%>%mutate_at(vars(species),~str_replace_all(.,"::","-"))
