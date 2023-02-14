@@ -1,0 +1,66 @@
+
+library(shiny)
+library(dplyr)
+library(DBI)
+library(leaflet)
+library(RSQLite)
+library(pool)
+#copy_to(i,mtcars,"mtcars")
+
+ #pool=dbPool( drv=RSQLite::SQLite(),host= "database-2.cdxo1k0cnkhk.ca-central-1.rds.amazonaws.com",dbname="database-2"
+#,user="admin",password="russiansci")
+
+ 
+ 
+ # pool <- dbPool(+        
+   # drv = RMySQL::MySQL(),
+   # dbname = "shinydemo",
+   # host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
+    #username = "guest",
+   # password = "guest"
+  
+#)
+
+
+#onStop(function() {
+ # poolClose(pool)
+#})
+
+ui <- fluidPage(
+  #textInput("ID", "Enter your ID:", "5"),
+  tableOutput("tbl"),
+  
+  verbatimTextOutput("l")
+)
+
+server <- function(input, output, session) {
+  output$tbl <- renderTable({
+    #i=dbConnect(RSQLite::SQLite(),host= "database-3.cdxo1k0cnkhk.ca-central-1.rds.amazonaws.com",
+                #dbname="database-2",user="admin",passwordInput="russiansci")
+    #dbListTables(i)
+    #dbWriteTable(i,"m",mtcars)
+  
+   # tbl(i,"mt")
+    
+   # pool %>%   tbl("mt")%>%select_all()  %>%collect() # filter(ID == !!input$ID) %>collect()
+  
+    })
+  
+  output$l<-renderPrint({
+    
+   # i=dbConnect(RSQLite::SQLite(),"database-3.cdxo1k0cnkhk.ca-central-1.rds.amazonaws.com")
+   
+    i=dbConnect(RSQLite::SQLite(),host= "database-3.cdxo1k0cnkhk.ca-central-1.rds.amazonaws.com",
+                dbname="database-2",user="admin",password="russiansci")
+    
+     dbListTables(i)
+    #dbWriteTable(i,"mt",mtcars)
+   #  tbl(i,"m")
+    
+     #dbListTables(i)    #tbl("mt") %>%# filter(ID == !!input$ID) %>collect()
+    
+  })
+  
+}
+
+shinyApp(ui, server)
